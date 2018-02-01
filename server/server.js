@@ -14,9 +14,21 @@ const io = socketIO(server);
 io.on('connection', (socket) => {
   console.log('New user connected');
 
-  socket.on('disconnect', () => {
-    console.log('Disconnected from client');
+  socket.emit('newMessage', {
+    from: 'Steve@Steve.com',
+    text: "The real thing",
+    createdAt: new Date()
   });
+
+  socket.on('createMessage', (msg) => {
+    msg.createdAt = new Date();
+    console.log('createMessage', msg);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('disconnect');
+  });
+
 });
 
 app.use(express.static(publicPath));
