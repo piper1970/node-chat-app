@@ -14,9 +14,24 @@ const io = socketIO(server);
 io.on('connection', (socket) => {
   console.log('New user connected');
 
+  // send message to user
+  socket.emit('newMessage', {
+    from: 'Admin',
+    text: 'Welcome to the chat channel',
+    createdAt: new Date().getTime()
+  });
+
+  // broadcasts to everyone but user who connected
+  socket.broadcast.emit('newMessage', {
+    from: 'Admin',
+    text: 'New user has joined the chat room',
+    createdAt: new Date().getTime()
+  });
+
   socket.on('createMessage', (msg) => {
     console.log('createMessage', msg);
 
+    // broadcast  to everyone on the system
     io.emit('newMessage', {
       from: msg.from,
       text: msg.text,
