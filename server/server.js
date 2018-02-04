@@ -21,9 +21,11 @@ io.on('connection', (socket) => {
   // broadcasts to everyone but user who connected
   socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user has joined the chat room'));
 
-  socket.on('createMessage', (msg) => {
+  socket.on('createMessage', (msg, callback) => {
     console.log('createMessage', msg);
-
+    if(callback){
+      callback(null, 'Server has acknowledged this message');
+    }
     // broadcast  to everyone on the system
     io.emit('newMessage', generateMessage(msg.from, msg.text));
   });
