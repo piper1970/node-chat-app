@@ -23,11 +23,8 @@ io.on('connection', (socket) => {
 
   socket.on('createMessage', (msg, callback) => {
     console.log('createMessage', msg);
-    if(callback){
-      callback(null, 'Server has acknowledged this message');
-    }
-    // broadcast  to everyone on the system
     io.emit('newMessage', generateMessage(msg.from, msg.text));
+    callback();
   });
 
   socket.on('disconnect', () => {
