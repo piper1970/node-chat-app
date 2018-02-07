@@ -19,7 +19,8 @@ socket.on('newMessage', function(message) {
     createdAt: formattedTime,
     from: message.from
   });
-  jQuery('#messages').append(html);
+  $('#messages').append(html);
+
 });
 
 socket.on('newLocationMessage', function(msg) {
@@ -48,7 +49,7 @@ $('#message-form').on('submit', function(e){
     }
     //display message at the bottom of the chat listen
     console.log(acknowledgement);
-    nameField.val('');
+    messageTextbox.val('');
   });
 });
 
