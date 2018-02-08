@@ -20,6 +20,16 @@ function scrollToBottom () {
 
 socket.on('connect', function(){
   console.log('connect');
+  var params = $.deparam(window.location.search);
+
+  socket.emit('join', params, function(errors){
+    if(errors){
+      alert(errors);
+      window.location.href = '/';
+    } else{
+      console.log('No errors in joining');
+    }
+  });
 });
 
 socket.on('disconnect', function() {
