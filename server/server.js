@@ -30,10 +30,7 @@ io.on('connection', (socket) => {
 
       // broadcasts to everyone but user who connected
       socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name} has joined the chat room`));
-
-      // io.emit() -> io.to(params.name).emit
-      // socket.broadcast.emit -> socket.broadcast.to(params.room).emit
-      // socket.emit ->
+      
       callback();
     }
   });
