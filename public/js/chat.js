@@ -100,5 +100,15 @@ locationButton.on('click', function(e) {
   }, function (error){
     alert('Unable to fetch location');
     locationButton.removeAttr('disabled').text(originalText);
-  })
+  });
+});
+
+socket.on('updateUserList', function(users){
+  console.log("updateUserList", users);
+  var ol = $('<ol></ol>');
+  users.forEach(function (user) {
+    ol.append($('<li></li>').text(user));
+  });
+
+  $('#users').html(ol);
 });
